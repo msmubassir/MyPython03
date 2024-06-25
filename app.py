@@ -12,7 +12,7 @@ def about():
     return render_template('about.html', title='About')
 
 @app.route('/ip')
-def index():
+def show_ip():
     ip_address = request.remote_addr
     return render_template('ip.html', ip=ip_address, title='IP Address' )
 
