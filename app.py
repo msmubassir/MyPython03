@@ -13,8 +13,13 @@ def about():
 
 @app.route('/ip')
 def show_ip():
-    ip_address = request.remote_addr
-    return render_template('ip.html', ip=ip_address, title='IP Address' )
+    # Check the 'X-Forwarded-For' header first
+    if request.headers.getlist("X-Forwarded-For"):
+        ip_address = request.headers.getlist("X-Forwarded-For")[0]
+    else:
+        ip_address = request.remote_addr
+    return render_template('ip.html', ip=ip_address, title='IP Address')
+
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
